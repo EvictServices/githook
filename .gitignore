@@ -2,3 +2,4 @@
 .fuse_*
 /githook
 /logs
+ecosystem.config.js
