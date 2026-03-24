@@ -12,6 +12,13 @@ import (
 )
 
 func HandleIncoming(w http.ResponseWriter, r *http.Request, client *redis.Client) {
+	defer func() {
+		if err := recover(); err != nil {
+			fmt.Printf("Panic recovered: %v\n", err)
+			http.Error(w, "Internal server error", http.StatusInternalServerError)
+		}
+	}()
+
 	conf := config.Get()
 	githubEvent := r.Header.Get("X-Github-Event")
 

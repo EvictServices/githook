@@ -41,14 +41,19 @@ docker compose up -d
 ### PM2 Deployment
 To run the application with PM2 (process manager):
 
-1. Configure environment variables in `ecosystem.config.js` if needed
+1. Build the Go binary:
+```bash
+go build -o githook .
+```
 
-2. Start with PM2:
+2. Configure environment variables in `.env` file or `ecosystem.config.js` (already created)
+
+3. Start with PM2:
 ```bash
 pm2 start ecosystem.config.js
 ```
 
-3. Manage the process:
+4. Manage the process:
 ```bash
 pm2 status           # Check status
 pm2 logs githook     # View logs
@@ -57,7 +62,7 @@ pm2 stop githook     # Stop
 pm2 delete githook   # Remove from PM2
 ```
 
-4. Save PM2 configuration to survive reboots:
+5. Save PM2 configuration to survive reboots:
 ```bash
 pm2 save
 pm2 startup
