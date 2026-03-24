@@ -1,2 +1,4 @@
 .env
 .fuse_*
+/githook
+/logs

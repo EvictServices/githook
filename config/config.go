@@ -28,9 +28,9 @@ func Get() Config {
 
 	return Config{
 		Redis: RedisConfig{
-			Password: getEnv("REDIS_PW"),
+			Password: getEnvOptional("REDIS_PW"),
 			Addr:     getEnv("REDIS_ADDR"),
-			Username: getEnv("REDIS_USR"),
+			Username: getEnvOptional("REDIS_USR"),
 			Db:       3,
 		},
 		Secret: getEnv("SECRET"),
@@ -42,5 +42,10 @@ func getEnv(key string) string {
 	if !set {
 		log.Fatalf("Config variable %s was missing\n", key)
 	}
+	return value
+}
+
+func getEnvOptional(key string) string {
+	value, _ := os.LookupEnv(key)
 	return value
 }
