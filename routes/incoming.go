@@ -24,7 +24,8 @@ func HandleIncoming(w http.ResponseWriter, r *http.Request, client *redis.Client
 
 	id := r.PathValue("id")
 
-	url, err := utils.Decrypt(id, []byte(conf.Secret))
+	key := normalizeKey(conf.Secret)
+	url, err := utils.Decrypt(id, key)
 	if err != nil {
 		http.Error(w, "Invalid ID", http.StatusBadRequest)
 		return
